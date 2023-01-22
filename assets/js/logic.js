@@ -33,8 +33,8 @@ function init() {
     submitButton  = document.getElementById("submit");
 
     // Initialise audio
-    correctSound = new Audio("assets/sfx/correct.wav");
-    incorrectSound = new Audio("assets/sfx/incorrect.wav");
+    correctSound = new Audio("./assets/sfx/correct.wav");
+    incorrectSound = new Audio("./assets/sfx/incorrect.wav");
 
     // add event liteners
     startButton.addEventListener("click", start);
