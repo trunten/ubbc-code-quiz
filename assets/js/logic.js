@@ -27,7 +27,7 @@
 //     - function to handle saving the high score
 //     - make sure to add the final score to local storage
 
-const INITIAL_TIME = 20;
+const INITIAL_TIME = 15;
 
 let highScores = [];
 let timer;
