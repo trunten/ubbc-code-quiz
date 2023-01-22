@@ -90,3 +90,19 @@ li:nth-child(odd) {
 .red-text {
   color: red;
 }
+
+.modal {
+  border: 1px dashed black;
+  padding: 0 20px 20px;
+  max-width: 50ch;
+  min-width: 35ch;
+  box-shadow: 0 0 10px rgb(97, 97, 97);
+}
+
+.modal h2 {
+  color: rgb(220, 43, 43);
+}
+
+.modal .button {
+  text-align: right;
+}

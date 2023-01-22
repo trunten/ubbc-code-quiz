@@ -42,6 +42,9 @@ function init() {
     initialsInput.addEventListener("keypress", function(e) {
         if (e.key === "Enter") { submitScore(e) }
     });
+    document.getElementById("modal-button").addEventListener("click",function() {
+        document.querySelector(".modal").close();
+    });
 }
 
 function start() {
@@ -125,7 +128,7 @@ function submitScore(e) {
         //Go to the high scores page
         window.location.href = "highscores.html"
     } else { // Nothing entered
-        alert("Initials can't be blank");
+        document.querySelector(".modal").showModal();
     }
 }
 

@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Coding Quiz</title>
-
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
     <link rel="stylesheet" href="./assets/css/styles.css" />
+    <!-- Meta tags for link previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trunten.github.io/ubbc-code-quiz/" />
+    <meta property="og:title" content="Coding Quiz Challenge" />
+    <meta property="og:image" content="https://trunten.github.io/ubbc-code-quiz/app-preview.png" />
+    <meta property="og:description" content="Are you up to the challenge? Test your mettle against this fiendishly hard coding quiz." />
   </head>
 
   <body>
@@ -41,6 +47,12 @@
 
       <div id="feedback" class="feedback hide"></div>
     </div>
+
+    <dialog hide class="modal">
+      <h2>Initials Required</h2>
+      <p>Please enter your initials before submitting.<br>Score not yet saved.</p>
+      <div class="button"><button id="modal-button">OK</button></div>
+    </dialog>
 
     <script src="./assets/js/questions.js"></script>
     <script src="./assets/js/logic.js"></script>
