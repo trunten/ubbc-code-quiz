@@ -1,9 +1,8 @@
-const INITIAL_TIME = 15;
-
-let highScores = [];
+let highScores;
 let timer;
 let timeRemaining;
 let quesitonNumber;
+let questionScore = 0;
 let timeLeftEl;
 let startScreenEl;
 let startButton;
@@ -47,7 +46,7 @@ function init() {
 
 function start() {
     // Set the time of the quiz
-    timeRemaining = INITIAL_TIME;
+    timeRemaining = getInitialTime();;
 
     // clear any existing content from the feeback elemment and show it
     questionFeedbackEl.textContent = ""
@@ -57,7 +56,7 @@ function start() {
     timer = setInterval(function() {
         if (timeRemaining > 0) { // Still time remaining. Decrease timeRemaining by 1 and update display
             timeRemaining--;
-            timeLeftEl.textContent = timeRemaining;
+            updateTimeRemaining();
         } else { // Out of time; end
             end();
         }
@@ -67,7 +66,7 @@ function start() {
     startScreenEl.classList.add("hide");
 
     // Set time left content to the initial quiz time
-    timeLeftEl.textContent = timeRemaining;
+    updateTimeRemaining();
 
     // On to the first question :)
     nextQuestion();
@@ -89,8 +88,13 @@ function end() {
     // Show the end screen
     endScreenEl.classList.remove("hide");
 
-    // Set the final score text to the time remaining
-    finalScoreEl.textContent = timeRemaining;
+    // Set the final score text to the time remaining plus or minus the question score.
+    // The question score is a running total of the number of correct - numer of incorrect
+    // Decided this little question score would give a nice bonus to someone who answered
+    // slowly but got everything right and would penalise someone who answered quickly but
+    // answered a lot (or all) incorrectly. Still want the score to by zero minimum though.
+    questionScore = Math.max(0, questionScore + timeRemaining);
+    finalScoreEl.textContent = questionScore;
 }
 
 function saveHighScores() {
@@ -99,25 +103,23 @@ function saveHighScores() {
 }
 
 function getHighScores() {
-    // Get saved data from local storage and parse string
-    let savedScores = JSON.parse(localStorage.getItem("scores"));
-
-    // If anything was retured update high scores array with the previously stored array
-    if (savedScores) { highScores = savedScores; }
+    // Get saved data from local storage, parse string and assign to the highScores varaible
+    // Assign an empty array if nothing exists in local storage.
+    highScores = JSON.parse(localStorage.getItem("scores")) || [];
 }
 
 function submitScore(e) {
     e.preventDefault();
     // If the score was somehow being submitted before a timer was set
     // suspect cheating and set timeRemaing to minus 99.
-    if (timeRemaining === undefined) { timeRemaining = -99; } //No-one likes a cheater
+    if (timeRemaining === undefined) { questionScore = -99; } //No-one likes a cheater
     // Get initals from input, trim whitespace and change to uppercase
     let initials = initialsInput.value.trim().toUpperCase();
     if (initials) { // If anything was entered
         // Create object to record score details
         let score = {
             initials: initials,
-            score: timeRemaining,
+            score: questionScore,
             quizTime: new Date().toISOString(), // Added quiz time in case I decide to use it later
         }
 
@@ -131,7 +133,7 @@ function submitScore(e) {
         saveHighScores();
 
         //Go to the high socres page
-        document.querySelector("a").click();
+        window.location.href = "highscores.html"
     } else { // Nothing entered
         alert("Initials can't be blank");
     }
@@ -194,25 +196,62 @@ function checkAnswer(e) {
         // click event was not enough on it's own.
         if (questions[quesitonNumber].choices.includes(givenAnswer)) {
             if (givenAnswer === questions[quesitonNumber].answer) {
-                // If the correct answer matched the answer clicked then play a happy sound!
+                // If the correct answer matched the answer clicked then increase question score by one and play a happy sound!
+                questionScore++;
                 questionFeedbackEl.textContent = "Correct!"
                 correctSound.load(); // Sound only played in full once without this. Weird.
                 correctSound.play();
             } else {
-                // Otherwise play a not so happy sound and decrease the time reamining
-                timeRemaining--;
-                timeLeftEl.textContent = timeRemaining;
+                // Otherwise decrease question score by one, play a not so happy sound, and decrease the time reamining
+                questionScore--;
+                timeRemaining-= getDecrement();
+                updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!"
                 incorrectSound.load(); // Sound only played in full once without this. Weird.
                 incorrectSound.play();
             }
-            // Go to the next question in 1 second so there's chance to hear the sound and
-            // view the question feedback.
-            setTimeout(nextQuestion, 700);
+            if (timeRemaining > 0) {
+                // If there's still time left on the clock Go to the next question after a
+                // slight delay so there's chance to hear the sound and view the question feedback.
+                setTimeout(nextQuestion, 700);
+            } else {
+                // Wrong answer has taken the time remaining to zero or below so set time 
+                // to zero (don't want a negative time remaining!) and end the game.
+                // Slight delay again to hear the sound and view feedback.
+                timeRemaining = 0;
+                setTimeout(end, 700);
+            }
         } 
     }   
 }
 
-// Only start initialising vairable once html content is fully rendered
+// Helper function to get the length of the quiz. This should be the number of
+// questions multiplied by 10. 10 seconds per question seems fair.
+function getInitialTime() {
+    let time = questions.length * 10;
+    return time;
+}
+
+// Helper function to get time penalty for a wrong answer.
+// Set to just 10 for now but using a helper function just 
+// incase i decide to change the logic later.
+function getDecrement() {
+    return 10;
+}
+
+//Function to update time remaining and give it red text when there's only 5 seconds (or less) left.
+function updateTimeRemaining() {
+    timeLeftEl.textContent = Math.max(0,timeRemaining);
+    if (timeRemaining <= 5) {
+        // Can't decide if it's better to have just the time or the whole div red. May change this later (ditto in else block)
+        // document.querySelector(".timer").classList.add("red-text"); 
+        timeLeftEl.classList.add("red-text");
+    } else {
+        // document.querySelector(".timer").classList.remove("red-text");
+        timeLeftEl.classList.remove("red-text");
+    }
+}
+
+// Only start initialising variables once html content is fully rendered
 window.onload = init();
 
