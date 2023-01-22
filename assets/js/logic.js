@@ -207,7 +207,7 @@ function checkAnswer(e) {
             }
             // Go to the next question in 1 second so there's chance to hear the sound and
             // view the question feedback.
-            setTimeout(nextQuestion, 1000);
+            setTimeout(nextQuestion, 700);
         } 
     }   
 }
