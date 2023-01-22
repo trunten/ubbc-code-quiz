@@ -69,6 +69,9 @@ function init() {
     startButton.addEventListener("click", start);
     questionChoicesEl.addEventListener("click",checkAnswer);
     submitButton.addEventListener("click", submitScore)
+    initialsInput.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") { submitScore(e) }
+    });
 }
 
 function start() {
@@ -110,6 +113,7 @@ function getHighScores() {
 
 function submitScore(e) {
     e.preventDefault();
+    if (timeRemaining === undefined) { timeRemaining = -99; } //No-one likes a cheater
     let initials = initialsInput.value.trim().toUpperCase();
     if (initials) {
         let score = {
