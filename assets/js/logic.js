@@ -26,3 +26,55 @@
 
 //     - function to handle saving the high score
 //     - make sure to add the final score to local storage
+
+let highScores;
+let timer;
+let quesiton;
+
+function setHighScores() {
+
+}
+
+function getHighScores() {
+    
+}
+
+function saveScore() {
+
+}
+
+function startTimer() {
+
+}
+
+function stopTimer() {
+
+}
+
+function win() {
+
+}
+
+function lose() {
+
+}
+
+function renderQuestion() {
+
+}
+
+function checkAnswer() {
+
+}
+
+function start() {
+
+} 
+
+function init() {
+
+}
+
+window.onload = init();
+
+
