@@ -117,7 +117,8 @@ function submitScore(e) {
         // Create object to record score details
         let score = {
             initials: initials,
-            score: timeRemaining
+            score: timeRemaining,
+            quizTime: new Date().toISOString(),
         }
 
         // get currently stored highscores array
