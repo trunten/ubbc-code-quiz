@@ -234,7 +234,7 @@ function getInitialTime() {
 
 // Helper function to get time penalty for a wrong answer.
 // Set to just 10 for now but using a helper function just 
-// incase i decide to change the logic later.
+// incase I decide to change the logic later.
 function getDecrement() {
     return 10;
 }
