@@ -1,4 +1,4 @@
-let highScores;
+// Global variables
 let timer;
 let timeRemaining;
 let quesitonNumber;
@@ -97,17 +97,6 @@ function end() {
     finalScoreEl.textContent = questionScore;
 }
 
-function saveHighScores() {
-    // Turn high scores array to a string and save to local storage
-    localStorage.setItem("scores", JSON.stringify(highScores));
-}
-
-function getHighScores() {
-    // Get saved data from local storage, parse string and assign to the highScores varaible
-    // Assign an empty array if nothing exists in local storage.
-    highScores = JSON.parse(localStorage.getItem("scores")) || [];
-}
-
 function submitScore(e) {
     e.preventDefault();
     // If the score was somehow being submitted before a timer was set
@@ -123,16 +112,17 @@ function submitScore(e) {
             quizTime: new Date().toISOString(), // Added quiz time in case I decide to use it later
         }
 
-        // get currently stored highscores array
-        getHighScores();
+        // Get saved data from local storage, parse string and assign to highScores varaible
+        // Assign an empty array if nothing exists in local storage.
+        let highScores = JSON.parse(localStorage.getItem("scores")) || [];
 
         // Add new score to array of high scores
         highScores.push(score);
 
-        //Save updated high socres array
-        saveHighScores();
+        // Save updated high scores array to local storage
+        localStorage.setItem("scores", JSON.stringify(highScores));
 
-        //Go to the high socres page
+        //Go to the high scores page
         window.location.href = "highscores.html"
     } else { // Nothing entered
         alert("Initials can't be blank");
