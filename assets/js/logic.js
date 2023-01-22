@@ -137,6 +137,7 @@ function nextQuestion() {
     if (quesitonNumber < questions.length) {
         // On to the next question if there's still some questions left
         renderQuestion();
+        questionChoicesEl.addEventListener("click", checkAnswer);
     } else {
         // If we've answered all the questions then we can finish
         end();
@@ -164,9 +165,12 @@ function renderQuestion() {
 function checkAnswer(e) {
     e.preventDefault();
     if (e.target.matches("button")) {
+        // Remove it to stop double clicks.
+        questionChoicesEl.removeEventListener("click", checkAnswer);
         let givenAnswer = e.target.dataset.answer;
         // Check this so the user can't just spoof there way through by clicking multiple times
-        // before the next question is fully rendered.
+        // before the next question is fully rendered. For some reason just removing the
+        // click event was not enough on it's own.
         if (questions[quesitonNumber].choices.includes(givenAnswer)) {
             if (givenAnswer === questions[quesitonNumber].answer) {
                 // If the correct answer matched the answer clicked then play a happy sound!
