@@ -10,7 +10,7 @@ const questions = [
         answer: "parentheses",
     },
     {
-        question: "Arrays in JavaScriot can be used to store _______.",
+        question: "Arrays in JavaScript can be used to store _______.",
         choices: ["numbers & strings","other arrays","objects","all of the above"],
         answer: "all of the above",
     },
@@ -20,14 +20,14 @@ const questions = [
         answer: "quotes",
     },
     {
-        question: "A very userul tool used during development and debugging for printing content to the debugger is _________.",
+        question: "A very useful tool used during development and debugging for printing content to the debugger is _________.",
         choices: ["JavaScript","terminal/bash","for loops","console.log"],
         answer: "console.log",
     },
     {
-        question: "Values can be save to local storage using ________.",
-        choices: ["getValue","setValue","addItem","getItem"],
-        answer: "getItem",
+        question: "Values can be saved to local storage using ________.",
+        choices: ["getValue","setValue","setContent","setItem"],
+        answer: "setItem",
     },
     
 ];
