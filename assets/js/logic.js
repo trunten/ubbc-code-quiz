@@ -118,7 +118,7 @@ function submitScore(e) {
         let score = {
             initials: initials,
             score: timeRemaining,
-            quizTime: new Date().toISOString(),
+            quizTime: new Date().toISOString(), // Added quiz time in case I decide to use it later
         }
 
         // get currently stored highscores array
