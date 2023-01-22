@@ -1,32 +1,3 @@
-// Notes on the js files:
-
-// - Break the code up into functions:
-
-//     - Start the quiz (which of the below functions can be called when we start the quiz?)
-
-//     - Get Question and display it on the page 
-//         - Grabbing the question from the questions array inside of questions.js file. 
-//         - These get displayed in the choices div.
-//         - What happens when each choice has been clicked? 
-//             - Need to display feedback: lets the user know if it was answered correctly or incorrectly. 
-//             - Also, need to play a sound effect if it is right or wrong. There is a folder with two different sound effects inside. 
-//             The Audio needs to be imported into logic.js:
-                
-//             var sfxRight = new Audio("assets/sfx/correct.wav");
-//             var sfxWrong = new Audio("assets/sfx/incorrect.wav");
-            
-//             Example of how to call:
-//             sfxWrong.play();
-//             - If the user answers incorrectly then time is taken off of the timer
-    
-//     - End the Quiz
-//         - what needs to happen here? 
-//         - Display high scores
-//         - Stop the timer
-
-//     - function to handle saving the high score
-//     - make sure to add the final score to local storage
-
 const INITIAL_TIME = 15;
 
 let highScores = [];
@@ -75,56 +46,92 @@ function init() {
 }
 
 function start() {
+    // Set the time of the quiz
     timeRemaining = INITIAL_TIME;
+
+    // clear any existing content from the feeback elemment and show it
     questionFeedbackEl.textContent = ""
     questionFeedbackEl.classList.remove("hide");
+
+    // Start a timer that will coutdown the time remaining and end the game at 0
     timer = setInterval(function() {
-        if (timeRemaining > 0) {
+        if (timeRemaining > 0) { // Still time remaining. Decrease timeRemaining by 1 and update display
             timeRemaining--;
             timeLeftEl.textContent = timeRemaining;
-        } else {
+        } else { // Out of time; end
             end();
         }
     }, 1000);
+
+    // Hide the start screen
     startScreenEl.classList.add("hide");
+
+    // Set time left content to the initial quiz time
     timeLeftEl.textContent = timeRemaining;
+
+    // On to the first question :)
     nextQuestion();
 } 
 
 function end() {
+    // clear the timer so it stop couting down/executing
     clearInterval(timer);
+
+    // Hide the questions & question feedback
     questionsContainerEl.classList.add("hide");
-    questionFeedbackEl.classList.add("hide")
+    questionFeedbackEl.classList.add("hide");
+
+    // Reset questions content just in case the element is made visible again by the user
     questionTitleEl.textContent = "";
     questionChoicesEl.innerHTML = "";
     questionFeedbackEl.textContent = "";
+
+    // Show the end screen
     endScreenEl.classList.remove("hide");
+
+    // Set the final score text to the time remaining
     finalScoreEl.textContent = timeRemaining;
 }
 
 function saveHighScores() {
+    // Turn high scores array to a string and save to local storage
     localStorage.setItem("scores", JSON.stringify(highScores));
 }
 
 function getHighScores() {
+    // Get saved data from local storage and parse string
     let savedScores = JSON.parse(localStorage.getItem("scores"));
+
+    // If anything was retured update high scores array with the previously stored array
     if (savedScores) { highScores = savedScores; }
 }
 
 function submitScore(e) {
     e.preventDefault();
+    // If the score was somehow being submitted before a timer was set
+    // suspect cheating and set timeRemaing to minus 99.
     if (timeRemaining === undefined) { timeRemaining = -99; } //No-one likes a cheater
+    // Get initals from input, trim whitespace and change to uppercase
     let initials = initialsInput.value.trim().toUpperCase();
-    if (initials) {
+    if (initials) { // If anything was entered
+        // Create object to record score details
         let score = {
             initials: initials,
             score: timeRemaining
         }
+
+        // get currently stored highscores array
         getHighScores();
+
+        // Add new score to array of high scores
         highScores.push(score);
+
+        //Save updated high socres array
         saveHighScores();
+
+        //Go to the high socres page
         document.querySelector("a").click();
-    } else {
+    } else { // Nothing entered
         alert("Initials can't be blank");
     }
 }
@@ -149,10 +156,19 @@ function nextQuestion() {
 }
 
 function renderQuestion() {
+    // Clear current feedback
     questionFeedbackEl.textContent = "";
+
+    // Clear current question choices
     questionChoicesEl.innerHTML = "";
+
+    // Get the current question object from the array
     let question = questions[quesitonNumber];
+
+    //Set the question title
     questionTitleEl.textContent = question.question;
+
+    // Loop through all the question choices and add to the question choices elemetn
     for (let choice of question.choices) {
         let btn = document.createElement("button");
         btn.dataset.answer = choice;
