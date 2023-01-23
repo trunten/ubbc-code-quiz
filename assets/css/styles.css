@@ -116,11 +116,13 @@ li:nth-child(odd) {
 }
 
 .feedback[data-value="correct"]::after {
-  content: " ✔️";
+  content: " ✔";
+  color: green;
   font-style: normal;
 }
 
 .feedback[data-value="incorrect"]::after {
-  content: " ❌";
+  content: " ✘";
+  color: red;
   font-style: normal;
 }
