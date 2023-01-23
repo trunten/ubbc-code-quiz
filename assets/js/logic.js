@@ -139,12 +139,6 @@ function submitScore(e) {
 }
 
 function nextQuestion() {
-    // Fix for sound issue in safari on mac os and iOS 
-    // Sound only played in full once without this.
-    if (reloadSounds) { 
-        correctSound.load();    
-        incorrectSound.load(); 
-    }
     if (quesitonNumber != undefined) {
         // When we first begin question number is not initialised to only increment
         // if we're already mid-game.
@@ -205,6 +199,7 @@ function checkAnswer(e) {
                 questionScore++;
                 questionFeedbackEl.textContent = "Correct!";
                 questionFeedbackEl.dataset.value = "correct";
+                if (reloadSounds) { correctSound.load(); } // Fix for sound issue in safari on mac os and iOS. Sound only played in full once without this.
                 correctSound.play();
             } else {
                 // Otherwise, play a not so happy sound and decrease the time reamining
@@ -212,6 +207,7 @@ function checkAnswer(e) {
                 updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!";
                 questionFeedbackEl.dataset.value = "incorrect";
+                if (reloadSounds) { incorrectSound.load(); } // Fix for sound issue in safari on mac os and iOS. Sound only played in full once without this.
                 incorrectSound.play();
             }
             if (timeRemaining > 0) {
