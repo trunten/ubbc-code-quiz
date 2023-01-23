@@ -2,6 +2,8 @@
 
 ## Description
 
+I was given the task of creating a simple, interactive coding quiz to test the users knowledge of basic JavaScript concepts.
+
 ### User Story
 
 ```
@@ -18,7 +20,7 @@ SO THAT I can gauge my progress compared to my peers
 -The quiz should end when all questions are answered or the timer reaches 0.
  - When the game ends, it should display their score and give the user the ability to ***save*** their initials and their score
 
-The application will be completed when all of the above criteria are met. The app will run in the browser and will feature d CSSynamically updated HTML and CSS powered by JavaScript code. It will have a clean, polished, and responsive user interface.
+The application will be completed when all of the above criteria are met. The app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code. It will have a clean, polished, and responsive user interface.
 
 ## Table of contents
 - [Installation](#installation)
