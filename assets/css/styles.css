@@ -87,10 +87,12 @@ li:nth-child(odd) {
   right: 10px;
 }
 
+/* Class for red coloured text - used for when 5 or fewer seconds remain */
 .red-text {
   color: red;
 }
 
+/* Styles for modal dialog - for initials input error */
 .modal {
   border: 1px dashed black;
   padding: 0 20px 20px;
@@ -106,6 +108,8 @@ li:nth-child(odd) {
   text-align: right;
 }
 
+
+/* Numbers on answer choice buttons */
 .choices {
   counter-reset: questionNumbers;
 }
@@ -115,6 +119,7 @@ li:nth-child(odd) {
   content: counter(questionNumbers) ". ";
 }
 
+/* Add a little tick/corss to the question feedback content :) */
 .feedback[data-value="correct"]::after {
   content: " ✔";
   color: rgb(0, 158, 0);
