@@ -1,7 +1,5 @@
 # Code Quiz Challenge
 
-[Deployed Site](https://trunten.github.io/ubbc-code-quiz/)
-
 ## Description
 
 ### User Story
