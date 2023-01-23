@@ -5,6 +5,7 @@ let clearButton;
 function renderHighScores() {
     highscoresListEl.innerHTML = "";
     if (highScores) {
+        highScores.sort((a, b) => b.score - a.score); // Sort highest to lowest score
         for (let score of highScores) {
             let li = document.createElement("li");
             li.textContent = score.initials + " - " + score.score
