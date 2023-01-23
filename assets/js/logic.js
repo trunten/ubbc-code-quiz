@@ -199,7 +199,6 @@ function checkAnswer(e) {
                 correctSound.play();
             } else {
                 // Otherwise, play a not so happy sound and decrease the time reamining
-                questionScore--;
                 timeRemaining-= getDecrement();
                 updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!"
@@ -228,9 +227,8 @@ function getInitialTime() {
     return time;
 }
 
-// Helper function to get time penalty for a wrong answer.
-// Set to just 10 for now but using a helper function just 
-// in case I decide to change the logic later.
+// Helper function to get time penalty for a wrong answer. Set to just 10 for   
+// now but using a function just in case I decide to change the logic later.
 function getDecrement() {
     return 10;
 }
