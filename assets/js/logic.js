@@ -90,6 +90,7 @@ function end() {
     questionTitleEl.textContent = "";
     questionChoicesEl.innerHTML = "";
     questionFeedbackEl.textContent = "";
+    questionFeedbackEl.dataset.value = "";
 
     // Show the end screen
     endScreenEl.classList.remove("hide");
@@ -155,6 +156,7 @@ function nextQuestion() {
 function renderQuestion() {
     // Clear current feedback
     questionFeedbackEl.textContent = "";
+    questionFeedbackEl.dataset.value = "";
 
     // Clear current question choices
     questionChoicesEl.innerHTML = "";
@@ -192,14 +194,16 @@ function checkAnswer(e) {
             if (givenAnswer === questions[quesitonNumber].answer) {
                 // If the correct answer matched the answer clicked then increase question score by one and play a happy sound!
                 questionScore++;
-                questionFeedbackEl.textContent = "Correct!"
+                questionFeedbackEl.textContent = "Correct!";
+                questionFeedbackEl.dataset.value = "correct";
                 if (navigator.userAgent.match(/safari/i)) { correctSound.load(); } // Sound only played in full once on safari without this.
                 correctSound.play();
             } else {
                 // Otherwise, play a not so happy sound and decrease the time reamining
                 timeRemaining-= getDecrement();
                 updateTimeRemaining();
-                questionFeedbackEl.textContent = "Wrong!"
+                questionFeedbackEl.textContent = "Wrong!";
+                questionFeedbackEl.dataset.value = "incorrect";
                 if (navigator.userAgent.match(/safari/i)) { incorrectSound.load(); } // Sound only played in full once on safari without this.
                 incorrectSound.play();
             }

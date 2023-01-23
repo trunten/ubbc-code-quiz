@@ -112,8 +112,13 @@ li:nth-child(odd) {
 
 .choices button::before {
   counter-increment: questionNumbers;
+  content: counter(questionNumbers) ". ";
 }
 
-.choices button::before {
-  content: counter(questionNumbers) ". ";
+.feedback[data-value="correct"]::after {
+  content: " ✔️";
+}
+
+.feedback[data-value="incorrect"]::after {
+  content: " ❌";
 }
