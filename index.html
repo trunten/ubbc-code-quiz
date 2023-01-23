@@ -16,6 +16,7 @@
   </head>
 
   <body>
+    <noscript style="display: block; margin: 50px 0 -70px; text-align: center; color: red">JavaScript is required to enable functionailty.<br>Make sure you enable it in your browser settings.</noscript>
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
 
     <div class="timer">Time: <span id="time">0</span></div>
@@ -40,7 +41,7 @@
         <h2>All done!</h2>
         <p>Your final score is <span id="final-score"></span>.</p>
         <p>
-          Enter initials: <input type="text" id="initials" max="3" />
+          Enter initials: <input type="text" id="initials" max="3" autocorrect="off" />
           <button id="submit">Submit</button>
         </p>
       </div>
