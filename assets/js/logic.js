@@ -19,6 +19,7 @@ let initialsInput;
 let submitButton;
 let correctSound;
 let incorrectSound;
+let reloadSounds;
 
 function init() {
     //Set references to page elements
@@ -48,6 +49,9 @@ function init() {
     document.getElementById("modal-button").addEventListener("click",function() {
         document.querySelector(".modal").close();
     });
+
+    // Variable to see if I need to preload the sounds each question (Audio fix for safari)
+    reloadSounds =  !navigator.userAgent.match(/safari/i);
 }
 
 function start() {
@@ -135,7 +139,12 @@ function submitScore(e) {
 }
 
 function nextQuestion() {
-    console.log(quesitonNumber);
+    // Fix for sound issue in safari on mac os and iOS 
+    // Sound only played in full once without this.
+    if (reloadSounds) { 
+        correctSound.load();    
+        incorrectSound.load(); 
+    }
     if (quesitonNumber != undefined) {
         // When we first begin question number is not initialised to only increment
         // if we're already mid-game.
@@ -167,7 +176,7 @@ function renderQuestion() {
     //Set the question title
     questionTitleEl.textContent = question.question;
 
-    // Loop through all the question choices and add to the question choices elemetn
+    // Loop through all the question choices and add to the question choices element
     for (let choice of question.choices) {
         let btn = document.createElement("button");
         btn.dataset.answer = choice;
@@ -196,7 +205,6 @@ function checkAnswer(e) {
                 questionScore++;
                 questionFeedbackEl.textContent = "Correct!";
                 questionFeedbackEl.dataset.value = "correct";
-                if (navigator.userAgent.match(/safari/i)) { correctSound.load(); } // Sound only played in full once on safari without this.
                 correctSound.play();
             } else {
                 // Otherwise, play a not so happy sound and decrease the time reamining
@@ -204,7 +212,6 @@ function checkAnswer(e) {
                 updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!";
                 questionFeedbackEl.dataset.value = "incorrect";
-                if (navigator.userAgent.match(/safari/i)) { incorrectSound.load(); } // Sound only played in full once on safari without this.
                 incorrectSound.play();
             }
             if (timeRemaining > 0) {
