@@ -121,8 +121,9 @@ li:nth-child(odd) {
 
 /* Add a little tick/corss to the question feedback content :) */
 .feedback[data-value="correct"]::after {
-  content: " ✔";
+  content: " ✓";
   color: rgb(0, 158, 0);
+  font-weight: bold;
   font-style: normal;
 }
 
