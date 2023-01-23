@@ -105,3 +105,15 @@ li:nth-child(odd) {
 .modal .button-container {
   text-align: right;
 }
+
+.choices {
+  counter-reset: questionNumbers;
+}
+
+.choices button::before {
+  counter-increment: questionNumbers;
+}
+
+.choices button::before {
+  content: counter(questionNumbers) ". ";
+}

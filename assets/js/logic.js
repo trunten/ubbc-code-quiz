@@ -96,9 +96,7 @@ function end() {
 
     // Set the final score text to the time remaining plus the question score.
     // The question score is a running total of the number of correct answers.
-    // Decided this little question score would give a nice bonus to someone who answered
-    // slowly but got everything right and would penalise someone who answered quickly but
-    // answered a lot (or all) incorrectly. 
+    // Decided this would give a nice bonus to someone who answered slowly but got everything right.
     questionScore = questionScore + timeRemaining;
     finalScoreEl.textContent = questionScore;
 }
