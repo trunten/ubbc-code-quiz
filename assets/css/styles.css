@@ -117,8 +117,10 @@ li:nth-child(odd) {
 
 .feedback[data-value="correct"]::after {
   content: " ✔️";
+  font-style: normal;
 }
 
 .feedback[data-value="incorrect"]::after {
   content: " ❌";
+  font-style: normal;
 }
