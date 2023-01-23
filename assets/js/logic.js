@@ -1,3 +1,6 @@
+// Import questions
+import { questions } from "./questions.js";
+
 // Global variables
 let timer;
 let timeRemaining;
@@ -91,12 +94,12 @@ function end() {
     // Show the end screen
     endScreenEl.classList.remove("hide");
 
-    // Set the final score text to the time remaining plus or minus the question score.
-    // The question score is a running total of the number of correct - numer of incorrect
+    // Set the final score text to the time remaining plus the question score.
+    // The question score is a running total of the number of correct answers.
     // Decided this little question score would give a nice bonus to someone who answered
     // slowly but got everything right and would penalise someone who answered quickly but
-    // answered a lot (or all) incorrectly. Still want the score to by zero minimum though.
-    questionScore = Math.max(0, questionScore + timeRemaining);
+    // answered a lot (or all) incorrectly. 
+    questionScore = questionScore + timeRemaining;
     finalScoreEl.textContent = questionScore;
 }
 
@@ -127,7 +130,7 @@ function submitScore(e) {
 
         //Go to the high scores page
         window.location.href = "highscores.html"
-    } else { // Nothing entered
+    } else { // Nothing entered. Inform the user input is required.
         document.querySelector(".modal").showModal();
     }
 }
@@ -192,15 +195,15 @@ function checkAnswer(e) {
                 // If the correct answer matched the answer clicked then increase question score by one and play a happy sound!
                 questionScore++;
                 questionFeedbackEl.textContent = "Correct!"
-                correctSound.load(); // Sound only played in full once without this. Weird.
+                if (navigator.userAgent.match(/safari/i)) { correctSound.load(); } // Sound only played in full once on safari without this.
                 correctSound.play();
             } else {
-                // Otherwise decrease question score by one, play a not so happy sound, and decrease the time reamining
+                // Otherwise, play a not so happy sound and decrease the time reamining
                 questionScore--;
                 timeRemaining-= getDecrement();
                 updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!"
-                incorrectSound.load(); // Sound only played in full once without this. Weird.
+                if (navigator.userAgent.match(/safari/i)) { incorrectSound.load(); } // Sound only played in full once on safari without this.
                 incorrectSound.play();
             }
             if (timeRemaining > 0) {
@@ -234,7 +237,7 @@ function getDecrement() {
 
 //Function to update time remaining and give it red text when there's only 5 seconds (or less) left.
 function updateTimeRemaining() {
-    timeLeftEl.textContent = Math.max(0,timeRemaining);
+    timeLeftEl.textContent = Math.max(0, timeRemaining);
     if (timeRemaining <= 5) {
         // Can't decide if it's better to have just the time or the whole div red. May change this later (ditto in else block)
         // document.querySelector(".timer").classList.add("red-text"); 
@@ -245,6 +248,6 @@ function updateTimeRemaining() {
     }
 }
 
-// Only start initialising variables once html content is fully rendered
-window.onload = init();
+// Initialise app
+init();
 

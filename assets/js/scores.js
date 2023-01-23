@@ -26,6 +26,6 @@ function init() {
     renderHighScores();
 }
 
-// Only start initialising vairable once html content is fully rendered
-window.onload = init();
+// Initialise app
+init();
 

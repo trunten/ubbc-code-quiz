@@ -102,6 +102,6 @@ li:nth-child(odd) {
   color: rgb(220, 43, 43);
 }
 
-.modal .button {
+.modal .button-container {
   text-align: right;
 }
