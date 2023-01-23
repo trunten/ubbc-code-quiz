@@ -19,7 +19,7 @@ let initialsInput;
 let submitButton;
 let correctSound;
 let incorrectSound;
-let reloadSounds;
+let reloadSounds =false;
 
 function init() {
     //Set references to page elements
@@ -50,8 +50,12 @@ function init() {
         document.querySelector(".modal").close();
     });
 
-    // Variable to see if I need to preload the sounds each question (Audio fix for safari)
-    reloadSounds =  !navigator.userAgent.match(/safari/i);
+    // Variable to see if I need to reload the sounds each question (Audio fix for safari)
+    if (!navigator.userAgent.match(/chrome|chromium|crios/i) 
+            && !navigator.userAgent.match(/edg/i)
+            && navigator.userAgent.match(/safari/i) ) { 
+        reloadSounds = true;
+    };
 }
 
 function start() {
@@ -139,6 +143,11 @@ function submitScore(e) {
 }
 
 function nextQuestion() {
+    // Fix for sound issue in safari on macOS and iOS. Sound only played in full once without this.
+    if (reloadSounds) { 
+        correctSound.load(); 
+        incorrectSound.load(); 
+    }
     if (quesitonNumber != undefined) {
         // When we first begin question number is not initialised to only increment
         // if we're already mid-game.
@@ -199,7 +208,6 @@ function checkAnswer(e) {
                 questionScore++;
                 questionFeedbackEl.textContent = "Correct!";
                 questionFeedbackEl.dataset.value = "correct";
-                if (reloadSounds) { correctSound.load(); } // Fix for sound issue in safari on mac os and iOS. Sound only played in full once without this.
                 correctSound.play();
             } else {
                 // Otherwise, play a not so happy sound and decrease the time reamining
@@ -207,7 +215,6 @@ function checkAnswer(e) {
                 updateTimeRemaining();
                 questionFeedbackEl.textContent = "Wrong!";
                 questionFeedbackEl.dataset.value = "incorrect";
-                if (reloadSounds) { incorrectSound.load(); } // Fix for sound issue in safari on mac os and iOS. Sound only played in full once without this.
                 incorrectSound.play();
             }
             if (timeRemaining > 0) {
