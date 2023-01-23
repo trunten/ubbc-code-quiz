@@ -42,6 +42,8 @@ N/A
 
 Application Screenshots:
 
+[![Application Screenshot](./assets/images/screenshots.gif)](https://trunten.github.io/ubbc-code-quiz/)
+
 [![Application Screenshot](./assets/images/screenshot-1.png)](https://trunten.github.io/ubbc-code-quiz/)
 
 [![Application Screenshot](./assets/images/screenshot-2.png)](https://trunten.github.io/ubbc-code-quiz/)
