@@ -17,7 +17,7 @@ SO THAT I can gauge my progress compared to my peers
  - Questions contain buttons for each answer. 
  - When answer is clicked, the next question appears 
  - If the answer clicked was incorrect then subtract time from the clock
--The quiz should end when all questions are answered or the timer reaches 0.
+ - The quiz should end when all questions are answered or the timer reaches 0.
  - When the game ends, it should display their score and give the user the ability to ***save*** their initials and their score
 
 The application will be completed when all of the above criteria are met. The app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code. It will have a clean, polished, and responsive user interface.
